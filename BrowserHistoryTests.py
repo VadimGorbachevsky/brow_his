@@ -389,7 +389,7 @@ class BrowserHistoryTests(unittest.TestCase):
         tested_object, last_perm, pre_last_perm, first_perm, second_perm, ten_step_ago_perm, ten_step_from_start_perm = self.history_generation();
         tested_object.back(7000)
         self.assertEqual(tested_object.forward(1), second_perm);
-    def not_int_back(self):
+    def not_int_forward(self):
         tested_object, last_perm, pre_last_perm, first_perm, second_perm, ten_step_ago_perm, ten_step_from_start_perm = self.history_generation();
         self.assertEqual(tested_object.forward('asdas'), "www.browser_fail_FAQ.com");
 
@@ -400,7 +400,7 @@ class BrowserHistoryTests(unittest.TestCase):
         tested_object, last_perm, pre_last_perm, first_perm, second_perm, ten_step_ago_perm, ten_step_from_start_perm = self.history_generation();
         tested_object.visit("newpage")
         self.assertEqual(tested_object.back(1), last_perm); #Last now PRE_LAST cuz of shift
-        self.assertEqual(tested_object.back(5000), second_perm); #Second now FIRST cuz of shift
+        self.assertEqual(tested_object.back(7000), second_perm); #Second now FIRST cuz of shift
         self.assertEqual(tested_object.forward(7000), "newpage"); #And new at the end
 
 #***************************************************************************************
@@ -408,15 +408,20 @@ class BrowserHistoryTests(unittest.TestCase):
 #***************************************************************************************
     def scenary_test(self):
         tested_object = BrowserHistory("github.com");
-        self.assertEqual(tested_object.visit("google.com").current_page, "google.com");
-        self.assertEqual(tested_object.visit("facebook.com").current_page, "facebook.com");
-        self.assertEqual(tested_object.visit("youtube.com").current_page, "youtube.com");
+        self.assertEqual(tested_object.current_page, "github.com");
+        tested_object.visit("google.com");
+        self.assertEqual(tested_object.current_page, "google.com");
+        tested_object.visit("facebook.com");
+        self.assertEqual(tested_object.current_page, "facebook.com");
+        tested_object.visit("youtube.com");
+        self.assertEqual(tested_object.current_page, "youtube.com");
         self.assertEqual(tested_object.back(1), "facebook.com");
         self.assertEqual(tested_object.back(1), "google.com");
         self.assertEqual(tested_object.forward(1), "facebook.com");
-        self.assertEqual(tested_object.visit("linkedin.com").current_page, "linkedin.com");
+        tested_object.visit("linkedin.com");
+        self.assertEqual(tested_object.current_page, "linkedin.com");
         self.assertEqual(tested_object.forward(2), "linkedin.com");
-        self.assertEqual(tested_object.back(2), "google.com");
+        self.assertEqual(tested_object.back(2), "facebook.com");
         self.assertEqual(tested_object.back(7), "github.com");
 
 
@@ -464,3 +469,6 @@ tests.negative_steps_forward();
 tests.one_steps_forward();
 tests.not_int_back();
 tests.max_items_limit_test();
+print("ALL TECHNICAL TESTS IS OK");
+tests.scenary_test();
+print("SCENARY TEST TESTS IS OK");

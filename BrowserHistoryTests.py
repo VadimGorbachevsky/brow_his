@@ -130,7 +130,7 @@ class BrowserHistoryTests(unittest.TestCase):
     def with_spaces_homepage(self):
         self.assertEqual(BrowserHistory("somethingwith ").homepage, "www.browser_fail_FAQ.com"); #space
         self.assertEqual(BrowserHistory("somethingwith  ").homepage, "www.browser_fail_FAQ.com"); #\t
-    def with_unsupported_lang_url(self):
+    def with_unsupported_lang_homepage(self):
         self.assertEqual(BrowserHistory("שדגי").homepage, "www.browser_fail_FAQ.com"); #space
         self.assertEqual(BrowserHistory("Текст").homepage, "www.browser_fail_FAQ.com"); #\t
     #***********
@@ -436,7 +436,7 @@ tests.with_numbers_homepage();
 tests.with_special_simbols_homepage();
 tests.with_big_case_homepage();
 tests.with_spaces_homepage();
-tests.with_unsupported_lang_url();
+tests.with_unsupported_lang_homepage();
 tests.normal_url();
 tests.no_string_type_url();
 tests.with_numbers_url();
@@ -467,7 +467,7 @@ tests.more_than_max_steps_forward();
 tests.zero_steps_forward();
 tests.negative_steps_forward();
 tests.one_steps_forward();
-tests.not_int_back();
+tests.not_int_forward();
 tests.max_items_limit_test();
 print("ALL TECHNICAL TESTS IS OK");
 tests.scenary_test();
